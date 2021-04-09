@@ -1,0 +1,55 @@
+NUME: Vasilache Raluca
+GRUPA: 314 CA
+
+
+			Tema #1: Musical Player
+
+
+Obiective :
+
+- Aprofundarea cunoștințelor în utilizarea limbajului C
+- Implementarea și utilizarea structurii de date listă dublu înlănțuită
+
+
+Proiectul contine :
+
+- Executabilul tema1 care se va forma din fisierele tema1.c si tema1.h;
+	tema1.c contine implementarea proiectului;
+	tema1.h contin semnaturile functiilor din fisierele .c corespunzatoare 
+denumirilor lor;
+- Un fisier Makefile
+- Un fisier README
+
+
+Implementarea proiectului : 
+
+	Implementarea se face folosind o lista dublu inlantuita liniara.
+	Datele sunt citite din fisierul de intrare linie cu linie,
+fiind memorate pe rand intr-un buffer. Liniile se interpreteaza astfel:
+comanda separata prin " " de numele fisierului, unde este cazul.
+Se parseaza cu strtok_r. In cazul comenzilor ADD_FIRST, ADD_LAST, ADD_AFTER
+si DEL_SONG se procedeaza in mod similar :
+
+	- Se formeaza numele fisierului de deschis prin concatenarea token-ului 
+la stringul "songs/". Se extrag datele din el si se adauga intr-o structura 
+tip Node. Acest lucru este realizat de functia get_data unde, cursorul e
+pozitionat la sfarsitul fisierului cu fseek si repozitionat fata de SEEK_END 
+astfel incat sa extragem bloc cu bloc informatiile din campurile title, 
+artist, album, year. Pentru DEL_SONG se executa doar ultima parte.
+
+	- Se verifica existenta melodiei in playlist. In caz negativ se adauga 
+pe pozitia dorita (0, list->size, pos_cur + 1). Daca melodie exista, se sterge
+apeland functia rm_nth_node pentru pozitia dorita, si se adauga unde trebuie,
+folosind functia add_nth_node. Daca cursorul se afla pe melodie, acesta trebuie
+mutat la dreapta, sau la stanga daca melodia era pe ultima pozitie din playlist,
+inainte sa fie stearsa.
+
+	Comenzile SHOW_FIRST, SHOW_LAST, SHOW_CURR apeleaza functia print_data,
+unde trimit ca parametru nodul dorit. Se testeaza, bineinteles existenta acestuia
+si in caz negativ se vor afisa mesaje de eroare.
+	Comenxile DELL_FIRST si DELL_LAST, apeleaza functia rm_nth_node.
+Comenzile MOVE_PREV, MOVE_NEXT muta cursorul la stanga sau la dreapta, daca lista 
+are mai mult de un element. 
+	Nu uitam ca, in final, sa inchidem fisierele folosite.
+	
+	
